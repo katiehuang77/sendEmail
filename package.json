@@ -1,0 +1,14 @@
+{
+  "name": "rerunApp",
+  "version": "0.0.1",
+  "private": true,
+  "config": {
+    "target": "dev"
+  },
+  "dependencies": {
+    "express": "3.4.x",
+    "underscore": "1.5.x",
+    "q": "0.9.x",
+    "mongoose": "4.9.6"
+  }
+}

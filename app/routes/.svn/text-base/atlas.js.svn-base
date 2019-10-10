@@ -1,0 +1,29 @@
+module.exports = function(app) {
+	var SubsidyApp = app.models.SubsidyApp;
+	app.get(app.conf.routePrefix + '/rerunApp/:appId', function(req, res, next) {
+	 
+	  console.log('[GET /rerunApp/:appId] ' + req.params.appId);
+	  // SubsidyApp.getStatus(req.params.appId, req.xis.auth.username, req.query.reshop)
+	  SubsidyApp.findByAppId(req.params.appId)
+	  // SubsidyApp.name
+	   .then(function(data) {
+	   	//convert data to js
+	   	var convertedData=buildJs(data);
+	     res.send(200, convertedData);
+	   }).fail(function(error) {
+	   	if (error === '401') {
+	   		res.send(401);
+	   	}
+        console.log('unable to get subsidy-app status ' + error);
+        res.send(500, {error: 'Internal server error'});
+      });
+	});
+
+	function buildJs(data){
+		var build = app.buildjs;
+		console.log(build);
+	    return build.build(data);
+
+	};
+
+}

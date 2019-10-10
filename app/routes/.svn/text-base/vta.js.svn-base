@@ -1,0 +1,13 @@
+var fs = require('fs');
+module.exports = function(app) {
+    app.get(app.conf.routePrefix + '/vta/:vta', function(req, res, next) {
+
+        console.log('[GET /vta/:vta] ' + req.params.vta);
+
+        fs.readFile('app/data/' + req.params.vta + '.js','utf8', function(err, data) {
+        	// var text = data;
+        	// console.log(data);
+            res.send(200, data);
+        })
+    });
+}

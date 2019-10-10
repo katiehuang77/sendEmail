@@ -1,0 +1,53 @@
+var express = require('express'),
+    _                 = require('underscore'),
+    app = express();
+
+module.exports = function(conf) {
+    app.conf = conf;
+    app.models              = {};
+    app.buildjs ={};
+    app.pagejs ={};
+    app.dbConnections = {};
+
+        _(conf.DB).each(function(db) {
+        app.dbConnections[db.name] = require('mongoose').createConnection(db.uri, {
+            keepAlive: 1
+        });
+    });
+
+    app.getDBForSchema = function(schemaName) {
+        var db = _(conf.DB).find(function(dbConf) {
+            return _(dbConf.schemas).find(function(sn) {
+                return sn.toLowerCase() === schemaName.toLowerCase();
+            });
+        });
+        if (db && db.name && app.dbConnections.hasOwnProperty(db.name)) return app.dbConnections[db.name];
+    };
+
+    app.use(app.router);
+    require(conf.paths.pagejs)(app);  
+    require(conf.paths.buildjs)(app);    
+    require(conf.paths.models)(app);
+    require(conf.paths.routes)(app);
+
+
+
+
+    var httpserver;
+    var http = require('http');
+    httpserver = http.createServer(app);
+    http.globalAgent.maxSockets = 1000;
+    httpserver.listen(conf.PORT, conf.HOST, function() {
+        // app.log.info('http server listening on ' + (conf.HOST && conf.HOST.length ? conf.HOST : 'localhost') + ':' + conf.PORT);
+        console.log('http server listening on ' + (conf.HOST && conf.HOST.length ? conf.HOST : 'localhost') + ':' + conf.PORT);
+    });
+
+    httpserver.on('request', function(req, res) {
+        console.log('done');
+    });
+    // app.listen(3000, function(){
+    // 	console.log("app listen on 3000!");
+    // })
+
+    return app;
+};
