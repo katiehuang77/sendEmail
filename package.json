@@ -6,9 +6,11 @@
     "target": "dev"
   },
   "dependencies": {
+    "body-parser": "^1.19.0",
     "express": "3.4.x",
-    "underscore": "1.5.x",
+    "mongoose": "4.9.6",
+    "nodemailer": "^6.3.1",
     "q": "0.9.x",
-    "mongoose": "4.9.6"
+    "underscore": "1.5.x"
   }
 }

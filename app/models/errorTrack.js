@@ -12,14 +12,14 @@ module.exports = {
             port: 465,
             secure: true, // secure:true for port 465, secure:false for port 587
             auth: {
-                user: 'youremail@xxxx.com',//邮箱帐号 example:1234@qq.com
-                pass: 'xxxxxxx' //授权码或密码
+                user: '598497916@qq.com',//邮箱帐号 example:1234@qq.com
+                pass: 'kriakfuffatkbddi' //授权码或密码
             }   
         });
         let mailOptions = {
-            from: '"katieh" <youremail@xxxx.com>', // sender address,要和上面配置的邮箱地址一致，example: "katieh" <1234@qq.com>
+            from: '"katieh" <598497916@qq.com>', // sender address,要和上面配置的邮箱地址一致，example: "katieh" <1234@qq.com>
             to: receiver, // list of receivers，example:xxxx@eheatlh.com
-            subject: 'network error track',
+            subject: 'new notification',
             text: content, // plain text body
             // attachments: [{'filename': 'log.har', 'content': attachment}]
         };
