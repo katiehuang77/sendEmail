@@ -21,7 +21,7 @@ module.exports = {
             to: receiver, // list of receivers，example:xxxx@eheatlh.com
             subject: 'new notification',
             text: content, // plain text body
-            // attachments: [{'filename': 'log.har', 'content': attachment}]
+            attachments: [{path: '/colinc/testM/output/result.jpg'}]
         };
         transporter.sendMail(mailOptions, (error, info) => {
                 if (error) {
