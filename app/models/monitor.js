@@ -30,7 +30,10 @@ module.exports = {
         // });
         // console.log(body);
 
-        db.monitor.find(body).sort({ url: -1 }).exec(function (err, docs) {
+        var sorturl ={url: -1};
+        sorturl.url = Math.floor(Math.random() * 2) === 1? 1:-1;
+ 
+        db.monitor.find(body).sort(sorturl).exec(function (err, docs) {
         // docs is [doc1, doc3, doc2]
             return defer.resolve(docs);
         });
