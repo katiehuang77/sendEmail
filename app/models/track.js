@@ -10,13 +10,13 @@ module.exports = {
         db.track = new Datastore('db/track');
         db.track.loadDatabase();
         db.track.find({url: body.url, size: body.size}, function (err, docs) {
-            console.log(body)
+            console.log(body);
             if(docs.length === 0){
                 db.track.insert(body, function (err, newDoc) {   // Callback is optional
                 console.log(err);
                 return defer.resolve(newDoc);
                 });
-            } else {
+            } else if(docs[0].status !== body.status){
                 db.track.update({url: body.url, size: body.size}, body, { multi: true }, function (err, newDoc) {
                 console.log(err);
                 return defer.resolve(newDoc);
