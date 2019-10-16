@@ -9,11 +9,22 @@ module.exports = {
         // db.monitor = new Datastore('db/monitor.db');
         db.track = new Datastore('db/track');
         db.track.loadDatabase();
-        db.track.insert(body, function (err, newDoc) {   // Callback is optional
-            console.log(err);
-            return defer.resolve(newDoc);
+        db.track.find({url: body.url, size: body.size}, function (err, docs) {
+            console.log(body)
+            console.log(docs.length);
+            if(docs.length === 0){
+                db.track.insert(body, function (err, newDoc) {   // Callback is optional
+                console.log(err);
+                return defer.resolve(newDoc);
+                });
+            } else if(docs[0].status !== body.status){
+                db.track.update({url: body.url, size: body.size}, body, { multi: true }, function (err, newDoc) {
+                console.log(err);
+                return defer.resolve(newDoc);
+                });
+            }
+        
         });
-
         return defer.promise;
     },
 
