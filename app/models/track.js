@@ -22,6 +22,7 @@ module.exports = {
                 return defer.resolve(newDoc);
                 });
             }
+            return defer.resolve(docs);
         
         });
         return defer.promise;
