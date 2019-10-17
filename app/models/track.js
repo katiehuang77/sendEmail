@@ -13,16 +13,17 @@ module.exports = {
             
             if(docs.length === 0){
                 db.track.insert(body, function (err, newDoc) {   // Callback is optional
-                console.log(err);
+                console.log("====error" + err);
                 return defer.resolve(newDoc);
                 });
             } else if(docs[0].status !== body.status){
                 db.track.update({url: body.url, size: body.size}, body, { multi: true }, function (err, newDoc) {
                 console.log('updated successfully');
-                console.log('===' + erro);
+                console.log("====error" + err);
                 return defer.resolve(newDoc);
                 });
             } else {
+                console.log("====error" + err);
                 console.log('cc Url: ' + body.url);
                 console.log(body.status + "==="+docs[0].status);
             }
