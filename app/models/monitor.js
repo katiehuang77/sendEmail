@@ -44,8 +44,10 @@ module.exports = {
         var defer=q.defer();
         var db = {};
         db.monitor = new Datastore('db/monitor');
+        db.track = new Datastore('db/track');
         //db.track = new Datastore('db/track.db');
         db.monitor.loadDatabase();
+        db.track.loadDatabase();
         // db.monitor.find(body, function (err, newDoc) {   // Callback is optional
         //     // console.log(err);
         //     return defer.resolve(newDoc);
@@ -59,13 +61,21 @@ module.exports = {
                 console.log(err);
                 return defer.resolve(newDoc);
              });
+            db.track.remove({url : body.url}, function (err, newDoc) {   // Callback is optional
+                console.log(err);
+                return defer.resolve(newDoc);
+             });
         } else {
             db.monitor.remove(body, function (err, newDoc) {   // Callback is optional
             console.log(err);
             return defer.resolve(newDoc);
             });
+            db.track.remove(body, function (err, newDoc) {   // Callback is optional
+            console.log(err);
+            return defer.resolve(newDoc);
+            });
         }
-        
+        return defer.resolve({});
 
         return defer.promise;
     }
