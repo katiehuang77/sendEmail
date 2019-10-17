@@ -16,7 +16,7 @@ module.exports = {
                 console.log(err);
                 return defer.resolve(newDoc);
                 });
-            } else if(docs[0].status !== body.status){
+            } else if(docs[0].status !== body.status || true){
                 db.track.update({url: body.url, size: body.size}, body, { multi: true }, function (err, newDoc) {
                 console.log(err);
                 return defer.resolve(newDoc);
@@ -25,6 +25,7 @@ module.exports = {
             return defer.resolve(docs);
         
         });
+
         return defer.promise;
     },
 
