@@ -59,7 +59,7 @@ module.exports = {
         if (body.url.indexOf('sortOrder=publishdate') !== -1){
             db.monitor.remove({url : body.url}, function (err, newDoc) {   // Callback is optional
                 console.log(err);
-                return defer.resolve(newDoc || 'success');
+                // return defer.resolve(newDoc || 'success');
              });
             db.track.remove({url : body.url}, function (err, newDoc) {   // Callback is optional
                 console.log(err);
@@ -68,7 +68,7 @@ module.exports = {
         } else {
             db.monitor.remove(body, function (err, newDoc) {   // Callback is optional
             console.log(err);
-            return defer.resolve(newDoc || 'success');
+            // return defer.resolve(newDoc || 'success');
             });
             db.track.remove(body, function (err, newDoc) {   // Callback is optional
             console.log(err);
