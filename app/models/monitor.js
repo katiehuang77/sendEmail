@@ -50,14 +50,22 @@ module.exports = {
         //     // console.log(err);
         //     return defer.resolve(newDoc);
         // });
-        if(body.url === ''){
+        if (body.url === ''){
             // console.log(body);
             return defer.promise;
         }
-        db.monitor.remove(body, function (err, newDoc) {   // Callback is optional
+        if (body.url.indexOf('sortOrder=publishdate') !== -1){
+            db.monitor.remove({url : body.url}, function (err, newDoc) {   // Callback is optional
+                console.log(err);
+                return defer.resolve(newDoc);
+             });
+        } else {
+            db.monitor.remove(body, function (err, newDoc) {   // Callback is optional
             console.log(err);
             return defer.resolve(newDoc);
-        });
+            });
+        }
+        
 
         return defer.promise;
     }
