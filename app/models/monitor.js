@@ -12,7 +12,7 @@ module.exports = {
         console.log(body)
         db.monitor.insert(body, function (err, newDoc) {   // Callback is optional
             console.log(err);
-            return defer.resolve(newDoc);
+            return defer.resolve(newDoc || 'success');
         });
 
         return defer.promise;
