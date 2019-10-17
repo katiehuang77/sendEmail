@@ -18,13 +18,15 @@ module.exports = {
                 });
             } else if(docs[0].status !== body.status){
                 db.track.update({url: body.url, size: body.size}, body, { multi: true }, function (err, newDoc) {
-                console.log(err);
+                console.log('updated successfully');
+                console.log('===' + erro);
                 return defer.resolve(newDoc);
                 });
             }
             return defer.resolve(docs);
         
         });
+
         return defer.promise;
     },
 
