@@ -75,7 +75,6 @@ module.exports = {
             return defer.resolve(newDoc);
             });
         }
-        return defer.resolve({});
 
         return defer.promise;
     }
