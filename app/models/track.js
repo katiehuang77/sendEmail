@@ -10,7 +10,14 @@ module.exports = {
         db.track = new Datastore('db/track');
         db.track.loadDatabase();
         db.track.find({url: body.url, size: body.size}, function (err, docs) {
-            console.log(body);
+            if(docs.length !== 0){
+                console.log('cc Url: ' + body.url);
+                console.log(body.status);
+                console.log('nn Url: ' + docs[0].url);
+                console.log(docs[0].status);
+                console.log(body.status + "==="+docs[0].status);
+            }
+            
             if(docs.length === 0){
                 db.track.insert(body, function (err, newDoc) {   // Callback is optional
                 console.log(err);
