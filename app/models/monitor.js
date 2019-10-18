@@ -56,7 +56,7 @@ module.exports = {
             // console.log(body);
             return defer.promise;
         }
-        if (body.url.indexOf('sortOrder=publishdate') !== -1 || (body.url.indexOf('sortOrder=publishdate') !== -1 && body.size === '')){
+        if (body.url.indexOf('sortOrder=publishdate') !== -1 || (body.url.indexOf('http') !== -1 && body.size === '')){
             db.monitor.remove({url : body.url}, function (err, newDoc) {   // Callback is optional
                 console.log(err);
                 // return defer.resolve(newDoc || 'success');
