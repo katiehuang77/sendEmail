@@ -57,20 +57,20 @@ module.exports = {
             return defer.promise;
         }
         if (body.url.indexOf('sortOrder=publishdate') !== -1 || (body.url.indexOf('http') !== -1 && body.size === '')){
-            db.monitor.remove({url : body.url}, function (err, newDoc) {   // Callback is optional
+            db.monitor.remove({url : body.url}, { multi: true }, function (err, newDoc) {   // Callback is optional
                 console.log(err);
                 return defer.resolve(newDoc || 'success');
              });
-            db.track.remove({url : body.url}, function (err, newDoc) {   // Callback is optional
+            db.track.remove({url : body.url}, { multi: true }, function (err, newDoc) {
                 console.log(err);
                 return defer.resolve(newDoc || 'success');
              });
         } else {
-            db.monitor.remove(body, function (err, newDoc) {   // Callback is optional
+            db.monitor.remove(body, { multi: true }, function (err, newDoc) {   // Callback is optional
             console.log(err);
             return defer.resolve(newDoc || 'success');
             });
-            db.track.remove(body, function (err, newDoc) {   // Callback is optional
+            db.track.remove(body, { multi: true }, function (err, newDoc) {   // Callback is optional
             console.log(err);
             return defer.resolve(newDoc || 'success');
             });
