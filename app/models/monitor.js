@@ -58,20 +58,22 @@ module.exports = {
         }
         if (body.url.indexOf('sortOrder=publishdate') !== -1 || (body.url.indexOf('http') !== -1 && body.size === '')){
             db.monitor.remove({url : body.url}, { multi: true }, function (err, newDoc) {   // Callback is optional
-                console.log(err);
+                console.log('remove all monitor' + body.url);
                 return defer.resolve(newDoc || 'success');
              });
             db.track.remove({url : body.url}, { multi: true }, function (err, newDoc) {
-                console.log(err);
+                console.log('remove all track ' + body.url);
                 return defer.resolve(newDoc || 'success');
              });
         } else {
-            db.monitor.remove(body, { multi: true }, function (err, newDoc) {   // Callback is optional
-            console.log(err);
+            db.monitor.remove(body, { multi: true }, function (err, newDoc) {   
+            console.log('remove monitor' + body.url);// Callback is optional
+            // console.log(err);
             return defer.resolve(newDoc || 'success');
             });
-            db.track.remove(body, { multi: true }, function (err, newDoc) {   // Callback is optional
-            console.log(err);
+            db.track.remove(body, { multi: true }, function (err, newDoc) {  
+            console.log('remove  track ' + body.url); // Callback is optional
+            // console.log(err);
             return defer.resolve(newDoc || 'success');
             });
         }
