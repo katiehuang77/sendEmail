@@ -2,6 +2,7 @@ var express     = require('express'),
     _           = require('underscore'),
     fs          = require('fs'),
     bodyParser  = require('body-parser'),
+    mongoose    = require('mongoose'),
     app         = express();
 
 
@@ -17,8 +18,13 @@ module.exports = function(conf) {
     });
     
     app.use(app.router);  
-
+    mongoose.connect("your mongourl");
+    var db = mongoose.connection;
+    db.on("connected", function () {
+        console.log("connnected!");
+        });
     require(conf.paths.routes)(app);
+    
 
     var httpserver;
     var http = require('http');
