@@ -18,7 +18,7 @@ module.exports = {
                 // console.log("====error" + err);
                 return defer.resolve(newDoc || 'success');
                 });
-            } else (docs[0].status !== body.status){
+            } else if(docs[0].status !== body.status){
                 db.track.update({url: body.url, size: body.size}, body, { multi: true }, function (err, newDoc) {
                 // console.log('updated successfully');
                 // console.log("====error" + err);
