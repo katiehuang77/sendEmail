@@ -9,17 +9,22 @@ module.exports = {
         // db.monitor = new Datastore('db/monitor.db');
         db.track = new Datastore('db/track');
         db.track.loadDatabase();
-        db.track.find({url: body.url, size: body.size}, function (err, docs) {
+        console.log(body);
+        var arraybody = body;
+        // var arraybody = body.split(',');
+        console.log(arraybody);
+        arraybody.forEach(function(currentbody){
+            db.track.find({url: currentbody.url, size: currentbody.size}, function (err, docs) {
             console.log('update - track');
-            console.log(body);
+            console.log(currentbody);
             
             if(docs.length === 0){
-                db.track.insert(body, function (err, newDoc) {   // Callback is optional
+                db.track.insert(currentbody, function (err, newDoc) {   // Callback is optional
                 // console.log("====error" + err);
                 return defer.resolve(newDoc || 'success');
                 });
-            } else if(docs[0].status !== body.status){
-                db.track.update({url: body.url, size: body.size}, body, { multi: true }, function (err, newDoc) {
+            } else if(docs[0].status !== currentbody.status){
+                db.track.update({url: currentbody.url, size: currentbody.size}, currentbody, { multi: true }, function (err, newDoc) {
                 // console.log('updated successfully');
                 // console.log("====error" + err);
                 return defer.resolve(newDoc || 'success');
@@ -27,7 +32,7 @@ module.exports = {
             } 
 
             return defer.resolve(docs || 'success');
-        
+            });
         });
 
         return defer.promise;
