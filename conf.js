@@ -1,6 +1,6 @@
 var conf = {},
     path = require('path')
-conf.HOST                             = '127.0.0.1';
+conf.HOST                             = '176.122.147.10';
 conf.PORT                             =  2222;
 conf.paths                            = {};
 conf.paths.app                        = path.join(__dirname, 'app');
