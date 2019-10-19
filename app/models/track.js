@@ -10,23 +10,22 @@ module.exports = {
         db.track = new Datastore('db/track');
         db.track.loadDatabase();
         db.track.find({url: body.url, size: body.size}, function (err, docs) {
+            console.log('update - track');
+            console.log(body);
             
             if(docs.length === 0){
                 db.track.insert(body, function (err, newDoc) {   // Callback is optional
-                console.log("====error" + err);
+                // console.log("====error" + err);
                 return defer.resolve(newDoc || 'success');
                 });
-            } else if(docs[0].status !== body.status){
+            } else (docs[0].status !== body.status){
                 db.track.update({url: body.url, size: body.size}, body, { multi: true }, function (err, newDoc) {
-                console.log('updated successfully');
-                console.log("====error" + err);
+                // console.log('updated successfully');
+                // console.log("====error" + err);
                 return defer.resolve(newDoc || 'success');
                 });
-            } else {
-                console.log("====error" + err);
-                console.log('cc Url: ' + body.url);
-                console.log(body.status + "==="+docs[0].status);
-            }
+            } 
+
             return defer.resolve(docs || 'success');
         
         });
