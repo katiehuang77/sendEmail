@@ -6,6 +6,7 @@
     "target": "dev"
   },
   "dependencies": {
+    "@sendgrid/mail": "^6.4.0",
     "body-parser": "^1.19.0",
     "express": "3.4.x",
     "fs": "0.0.1-security",

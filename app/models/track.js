@@ -1,5 +1,6 @@
 var Datastore = require('nedb');
 var q=require('q');
+var email=require('./email')
 
 module.exports = {
     
@@ -11,6 +12,7 @@ module.exports = {
         db.track.loadDatabase();
         // console.log(body);
         var arraybody = body;
+        // email.send(body);
         // var arraybody = body.split(',');
         // console.log(arraybody);
         arraybody.forEach(function(currentbody){
@@ -24,6 +26,14 @@ module.exports = {
                 return defer.resolve(newDoc || 'success');
                 });
             } else if(docs[0].status !== currentbody.status){
+
+                if(currentbody.status === 'enable'){
+                    // try{
+                    //     email.send(currentbody);   
+                    // } catch(error){
+                    //     console.log(error);
+                    // }
+                }
                 db.track.update({url: currentbody.url, size: currentbody.size}, currentbody, { multi: true }, function (err, newDoc) {
                 // console.log('updated successfully');
                 // console.log("====error" + err);
