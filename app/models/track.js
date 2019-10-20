@@ -12,7 +12,7 @@ module.exports = {
         // console.log(body);
         var arraybody = body;
         // var arraybody = body.split(',');
-        console.log(arraybody);
+        // console.log(arraybody);
         arraybody.forEach(function(currentbody){
             db.track.find({url: currentbody.url, size: currentbody.size}, function (err, docs) {
             console.log('update - track');
