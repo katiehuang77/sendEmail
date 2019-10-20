@@ -7,43 +7,57 @@ module.exports = {
     save:function(body) {
         var defer=q.defer();
         var db = {};
+        // var now = dateFormat(new Date(), "isoDateTime");
         // db.monitor = new Datastore('db/monitor.db');
         db.track = new Datastore('db/track');
         db.track.loadDatabase();
-        // console.log(body);
-        var arraybody = body;
+        console.log(body);
+        // console.log('add track..');
+        // var arraybody = body;
+
         // email.send(body);
         // var arraybody = body.split(',');
         // console.log(arraybody);
-        arraybody.forEach(function(currentbody){
-            db.track.find({url: currentbody.url, size: currentbody.size}, function (err, docs) {
-            console.log('update - track');
-            console.log(currentbody);
-            
-            if(docs.length === 0){
-                db.track.insert(currentbody, function (err, newDoc) {   // Callback is optional
-                // console.log("====error" + err);
-                return defer.resolve(newDoc || 'success');
-                });
-            } else if(docs[0].status !== currentbody.status){
 
-                if(currentbody.status === 'enable'){
-                    // try{
-                    //     email.send(currentbody);   
-                    // } catch(error){
-                    //     console.log(error);
-                    // }
+        // arraybody.forEach(function(currentbody){
+        db.track.find({"status": "enabled"}, function (err, docs) {
+            
+            for (var i=0; i < body.length; i++){
+
+                for(var j=0; j < docs.length; j++){
+
+                    if(body[i].url === docs[j].url && body[i].size === docs[j].size && body[i].status !== docs[j].status) {
+                        db.track.update({url: body[i].url, size: body[i].size}, body[i], { multi: true }, function (err, newDoc) {
+                        console.log('==track updated==');
+                        return defer.resolve(newDoc || 'success');
+                        });
+                    }
                 }
-                db.track.update({url: currentbody.url, size: currentbody.size}, currentbody, { multi: true }, function (err, newDoc) {
-                // console.log('updated successfully');
-                // console.log("====error" + err);
-                return defer.resolve(newDoc || 'success');
-                });
-            } 
+
+                if(body[i].status === 'enabled'){
+
+                    var isInsert = false;
+                    for (var k =0; k< docs.length; k++){
+                        if (body[i].url === docs[k].url && body[i].size === docs[k].size){
+                            isInsert = true;
+                        }
+                    }
+                    if(!isInsert){
+                        db.track.insert(body[i], function (err, newDoc) {   // Callback is optional
+                            console.log('==track insert==');
+                            return defer.resolve(newDoc || 'success');
+                        });
+                    } else{
+                        return defer.resolve(docs || 'success');
+                    }
+                }
+                isInsert = false;
+
+            }
 
             return defer.resolve(docs || 'success');
+
             });
-        });
 
         return defer.promise;
     },

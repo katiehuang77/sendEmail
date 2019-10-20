@@ -39,7 +39,7 @@ module.exports = function(app) {
     });
 
     app.post(app.conf.routePrefix + '/track', function(req, res, next) {
-        console.log(req.body);
+        // console.log(req.body);
         track.save(req.body).then(function(data){
             res.status(200).send(data);
         }).fail(function(error){
