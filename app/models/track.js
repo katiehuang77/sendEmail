@@ -9,7 +9,7 @@ module.exports = {
         // db.monitor = new Datastore('db/monitor.db');
         db.track = new Datastore('db/track');
         db.track.loadDatabase();
-        console.log(body);
+        // console.log(body);
         var arraybody = body;
         // var arraybody = body.split(',');
         console.log(arraybody);
