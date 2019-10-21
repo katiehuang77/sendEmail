@@ -10,6 +10,7 @@ module.exports = {
         var defer=q.defer();
         var currentData;
         // filteredBody= body.filter(b=>b.status=="enabled");
+        console.log(body);
         monitor.find({}, function(err, doc){
             if(err) {console.log(err);currentData=[]}
             else {currentData=doc}
@@ -34,7 +35,7 @@ module.exports = {
         monitor.find(body).sort({time: 1}).exec(function(err, docs) { 
             if(err) {console.log(err)}
             else {
-                console.log(docs)
+                // console.log('get all enabled track')
                 return defer.resolve(docs)
             }
          });
