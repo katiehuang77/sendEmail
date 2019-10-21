@@ -18,7 +18,7 @@ module.exports = {
         var defer=q.defer();
         monitor.findOneAndUpdate(body,body,{upsert:true}, function(err, doc){
             if(err) {console.log(err)}
-            else {console.log('saved successfully '+body.url)}
+            else {console.log(body)}
             return defer.resolve('success')
         })
         return defer.promise;
@@ -29,7 +29,7 @@ module.exports = {
         monitor.find(body,{},{sort:{url:1}},function(err,docs) { 
             if(err) {console.log(err)}
             else {
-                console.log('success');
+                console.log(docs);
                 return defer.resolve(docs)
             }
          });

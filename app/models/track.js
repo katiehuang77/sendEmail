@@ -18,7 +18,7 @@ module.exports = {
                     if(item.url == eachLog.url && item.size==eachLog.size && item.status!=eachLog.status){
                         monitor.findOneAndUpdate({url:eachLog.url,size:eachLog.size},eachLog, function(err, doc){
                             if(err) {console.log(err)}
-                            else {console.log('tracking is saved successfully '+eachLog.url)}
+                            else {console.log('tracking is saved successfully '+eachLog.url + 'size: ' + eachLog.size + 'status: ' + eachLog.status)}
                             return defer.resolve('success')
                         })
                     }
@@ -34,7 +34,7 @@ module.exports = {
         monitor.find(body).sort({time: 1}).exec(function(err, docs) { 
             if(err) {console.log(err)}
             else {
-                console.log('success')
+                console.log(docs)
                 return defer.resolve(docs)
             }
          });
