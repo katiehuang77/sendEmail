@@ -18,7 +18,7 @@ module.exports = function(conf) {
     });
     
     app.use(app.router);  
-    mongoose.connect("mongodb://username:pwd@127.0.0.1:50107/monitor");
+    mongoose.connect("mongodb://ccmm:cc24@127.0.0.1:50107/monitor");
     var db = mongoose.connection;
     db.on("connected", function () {
         console.log("connnected!");
