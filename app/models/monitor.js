@@ -5,7 +5,7 @@ var monitorSchema = new mongoose.Schema({
     url: String,
     size:String,
     frequency: String,
-    status:{ type:String,'default':''},
+    status:{ type:String,'default':'disabled'},
     time : Date
 }, 
 {collection: "monitor"}
