@@ -16,7 +16,11 @@ module.exports = {
             else {currentData=doc}
             _.each(body, function(eachLog){
                 currentData.find(function(item,i) {
-                    if(item.url == eachLog.url && item.size==eachLog.size && item.status!=eachLog.status){
+                    if(item.url === eachLog.url && item.size === eachLog.size && item.status !== eachLog.status){
+                        if(item.status === 'enabled'){
+                            console.log('send email');
+                            email.send(eachLog);
+                        }
                         monitor.findOneAndUpdate({url:eachLog.url,size:eachLog.size},eachLog, function(err, doc){
                             if(err) {console.log(err)}
                             else {console.log('tracking is saved successfully '+eachLog.url + 'size: ' + eachLog.size + 'status: ' + eachLog.status)}
