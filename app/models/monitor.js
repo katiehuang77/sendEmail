@@ -29,7 +29,7 @@ module.exports = {
         monitor.find(body,{},{sort:{url:1}},function(err,docs) { 
             if(err) {console.log(err)}
             else {
-                console.log(docs);
+                // console.log(docs);
                 return defer.resolve(docs)
             }
          });
