@@ -1,84 +1,62 @@
-var Datastore = require('nedb');
+var _ = require('underscore');
+var mongoose = require('mongoose');
 var q=require('q');
+var monitorSchema = new mongoose.Schema({
+    url: String,
+    size:String,
+    frequency: String,
+    status:{ type:String,'default':''},
+    time : Date
+}, 
+{collection: "monitor"}
+);
+var monitor = mongoose.model('monitor', monitorSchema);
 
 module.exports = {
     
     save:function(body) {
         var defer=q.defer();
-        var db = {};
-        db.monitor = new Datastore('db/monitor');
-        //db.track = new Datastore('db/track.db');
-        db.monitor.loadDatabase();
-        console.log(body)
-        db.monitor.insert(body, function (err, newDoc) {   // Callback is optional
-            console.log(err);
-            return defer.resolve(newDoc || 'success');
-        });
-
+        monitor.findOneAndUpdate(body,body,{upsert:true}, function(err, doc){
+            if(err) {console.log(err)}
+            else {console.log('saved successfully '+body.url)}
+            return defer.resolve('success')
+        })
         return defer.promise;
     },
 
     get:function(body) {
         var defer=q.defer();
-        var db = {};
-        db.monitor = new Datastore('db/monitor');
-        //db.track = new Datastore('db/track.db');
-        db.monitor.loadDatabase();
-        // db.monitor.find(body, function (err, newDoc) {   // Callback is optional
-        //     // console.log(err);
-        //     return defer.resolve(newDoc);
-        // });
-        // console.log(body);
-
-        var sorturl ={url: -1};
-        sorturl.url = Math.floor(Math.random() * 2) === 1? 1:-1;
- 
-        db.monitor.find(body).sort(sorturl).exec(function (err, docs) {
-        // docs is [doc1, doc3, doc2]
-            return defer.resolve(docs);
-        });
+        monitor.find(body,{},{sort:{url:1}},function(err,docs) { 
+            if(err) {console.log(err)}
+            else {
+                console.log('success');
+                return defer.resolve(docs)
+            }
+         });
         return defer.promise;
     },
 
     delete:function(body) {
         var defer=q.defer();
-        var db = {};
-        db.monitor = new Datastore('db/monitor');
-        db.track = new Datastore('db/track');
-        //db.track = new Datastore('db/track.db');
-        db.monitor.loadDatabase();
-        db.track.loadDatabase();
-        // db.monitor.find(body, function (err, newDoc) {   // Callback is optional
-        //     // console.log(err);
-        //     return defer.resolve(newDoc);
-        // });
         if (body.url === ''){
-            // console.log(body);
             return defer.promise;
         }
         if (body.url.indexOf('sortOrder=publishdate') !== -1 || (body.url.indexOf('http') !== -1 && body.size === '')){
-            db.monitor.remove({url : body.url}, { multi: true }, function (err, newDoc) {   // Callback is optional
-                console.log('remove all monitor' + body.url);
-                return defer.resolve(newDoc || 'success');
-             });
-            db.track.remove({url : body.url}, { multi: true }, function (err, newDoc) {
-                console.log('remove all track ' + body.url);
-                return defer.resolve(newDoc || 'success');
-             });
+            monitor.findOne({ url:body.url }).remove( function(err){
+                if(err) {console.log(err)}
+                else{console.log('remove '+body.url)}
+                return defer.resolve('success')
+            } ) 
         } else {
-            db.monitor.remove(body, { multi: true }, function (err, newDoc) {   
-            console.log('remove monitor' + body.url);// Callback is optional
-            // console.log(err);
-            return defer.resolve(newDoc || 'success');
-            });
-            db.track.remove(body, { multi: true }, function (err, newDoc) {  
-            console.log('remove  track ' + body.url); // Callback is optional
-            // console.log(err);
-            return defer.resolve(newDoc || 'success');
-            });
+            monitor.find(body).remove( function(err){
+                if(err) {console.log(err)}
+                else{console.log('remove '+body.url)}
+                return defer.resolve('success')
+            } )
         }
-
         return defer.promise;
-    }
+    },
+
+    monitor:monitor
 }
 

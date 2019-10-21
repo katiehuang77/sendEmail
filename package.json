@@ -15,5 +15,8 @@
     "nodemailer": "^6.3.1",
     "q": "0.9.x",
     "underscore": "1.5.x"
+  },
+  "devDependencies": {
+    "lodash": "^4.17.15"
   }
 }

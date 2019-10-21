@@ -21,8 +21,8 @@ module.exports = function(app) {
     });
 
     app.post(app.conf.routePrefix + '/getmonitor', function(req, res, next) {
-        // console.log(req.body)
         monitor.get(req.body).then(function(data){
+            console.log('res ' +data)
             res.header("Access-Control-Allow-Origin", "*");
             res.status(200).send(data);
         }).fail(function(error){

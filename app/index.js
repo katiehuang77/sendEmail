@@ -2,7 +2,8 @@ var express     = require('express'),
     _           = require('underscore'),
     fs          = require('fs'),
     bodyParser  = require('body-parser'),
-    app         = express();
+    app         = express(),
+    mongoose = require('mongoose');
 
 
 
@@ -17,7 +18,11 @@ module.exports = function(conf) {
     });
     
     app.use(app.router);  
-
+    mongoose.connect("mongodb://username:pwd@127.0.0.1:50107/monitor");
+    var db = mongoose.connection;
+    db.on("connected", function () {
+        console.log("connnected!");
+        });
     require(conf.paths.routes)(app);
 
     var httpserver;
