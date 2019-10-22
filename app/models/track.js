@@ -19,7 +19,7 @@ module.exports = {
                     if(item.url === eachLog.url && item.size === eachLog.size && item.status !== eachLog.status){
                         if(item.status === 'enabled'){
                             console.log('send email');
-                            email.send(eachLog);
+                            // email.send(eachLog);
                         }
                         monitor.findOneAndUpdate({url:eachLog.url,size:eachLog.size},eachLog, function(err, doc){
                             if(err) {console.log(err)}
