@@ -56,6 +56,16 @@ module.exports = function(app) {
         })            
     });
 
+    app.get(app.conf.routePrefix + '/getenablelog', function(req, res, next) {
+        track.getenablelog().then(function(data){
+            res.header("Access-Control-Allow-Origin", "*");
+            // console.log(data)
+            res.status(200).send(data);
+        }).fail(function(error){
+            res.send(error);
+        })            
+    });
+
     app.get(app.conf.routePrefix + '/dashboard', function(req, res, next) {
         // res.sendFile('testData/filter.html');
 

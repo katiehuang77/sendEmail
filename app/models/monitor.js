@@ -1,16 +1,7 @@
 var _ = require('underscore');
-var mongoose = require('mongoose');
 var q=require('q');
-var monitorSchema = new mongoose.Schema({
-    url: String,
-    size:String,
-    frequency: String,
-    status:{ type:String,'default':'disabled'},
-    time : Date
-}, 
-{collection: "monitor"}
-);
-var monitor = mongoose.model('monitor', monitorSchema);
+var db=require('./db')
+var monitor=db.monitor
 
 module.exports = {
     
