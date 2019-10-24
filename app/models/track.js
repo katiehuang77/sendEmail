@@ -18,7 +18,7 @@ module.exports = {
             _.each(body, function(eachLog){
                 currentData.find(function(item,i) {
                     if(item.url === eachLog.url && item.size === eachLog.size && item.status !== eachLog.status){
-                        if(item.status === 'enabled'){
+                        if(eachLog.status === 'enabled'){
                             console.log('send email');
                             // email.send(eachLog);
                             var options = { upsert: true, new: true, setDefaultsOnInsert: true };
