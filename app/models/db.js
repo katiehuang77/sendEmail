@@ -4,6 +4,9 @@ var monitorSchema = new mongoose.Schema({
     url: String,
     size:String,
     frequency: String,
+    email: String,
+    price: String,
+    discount: String,
     status:{ type:String,'default':'disabled'},
     time : Date
 }, 
@@ -15,6 +18,7 @@ var enablelogSchema = new mongoose.Schema({
     url: String,
     size:String,
     frequency: String,
+    email: String,
     status:String,
     time : Date
 }, 
