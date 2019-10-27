@@ -8,7 +8,7 @@ var monitorSchema = new mongoose.Schema({
     price: String,
     discount: String,
     status:{ type:String,'default':'disabled'},
-    time : Date
+    time : String
 }, 
 {collection: "monitor"}
 );
@@ -20,7 +20,7 @@ var enablelogSchema = new mongoose.Schema({
     frequency: String,
     email: String,
     status:String,
-    time : Date
+    time : String
 }, 
 {collection: "enablelog"}
 );
