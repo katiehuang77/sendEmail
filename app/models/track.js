@@ -43,7 +43,7 @@ module.exports = {
 
     get:function(body) {
         var defer=q.defer();
-        monitor.find(body).sort({time: -1}).exec(function(err, docs) { 
+        monitor.find(body).sort({utctime: -1}).exec(function(err, docs) { 
             if(err) {console.log(err)}
             else {
                 console.log('3s track get')
@@ -55,7 +55,7 @@ module.exports = {
 
     getenablelog:function() {
         var defer=q.defer();
-        enablelog.find().sort({time: -1}).exec(function(err, docs) { 
+        enablelog.find().sort({utctime: -1}).exec(function(err, docs) { 
             if(err) {console.log(err)}
             else {
                 console.log('3s track get')
