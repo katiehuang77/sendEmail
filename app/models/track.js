@@ -17,18 +17,18 @@ module.exports = {
             else {currentData=doc}
             _.each(body, function(eachLog){
                 currentData.find(function(item,i) {
-                    if(item.url === eachLog.url && item.size === eachLog.size && item.status !== eachLog.status){
+                    if(item.url.indexOf(eachLog.url.split("/")[eachLog.url.split("/").length -1]) !== -1 && item.size === eachLog.size && item.status !== eachLog.status){
                         if(eachLog.status === 'enabled'){
                             console.log('send email');
                             // email.send(eachLog);
                             var options = { upsert: true, new: true, setDefaultsOnInsert: true };
-                            enablelog.findOneAndUpdate(eachLog,eachLog, options, function(err, doc){
+                            enablelog.findOneAndUpdate(eachLog, eachLog, options, function(err, doc){
                                 if(err) {console.log(err)}
                                 else {console.log('enablelog is saved successfully '+eachLog.url + 'size: ' + eachLog.size + 'status: ' + eachLog.status)}
                                 return defer.resolve('success')
                             })
                         }
-                        monitor.findOneAndUpdate({url:eachLog.url,size:eachLog.size},eachLog, function(err, doc){
+                        monitor.findOneAndUpdate({url:item.url,size:item.size},eachLog, function(err, doc){
                             if(err) {console.log(err)}
                             else {console.log('tracking is saved successfully '+eachLog.url + 'size: ' + eachLog.size + 'status: ' + eachLog.status)}
                             return defer.resolve('success')
