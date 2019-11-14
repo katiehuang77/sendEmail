@@ -3,6 +3,7 @@ var express     = require('express'),
     fs          = require('fs'),
     bodyParser  = require('body-parser'),
     app         = express(),
+    path = require('path'),
     mongoose = require('mongoose');
 
 
@@ -19,16 +20,28 @@ module.exports = function(conf) {
     
     app.use(app.router);  
     mongoose.connect("mongodb://ccmm:cc24@127.0.0.1:50107/monitor");
+    // mongoose.connect("mongodb://katieh:20160704.kh@127.0.0.1:50107/monitor")
     var db = mongoose.connection;
     db.on("connected", function () {
         console.log("connnected!");
         });
     require(conf.paths.routes)(app);
 
-    var httpserver;
-    var http = require('http');
-    httpserver = http.createServer(app);  
-    http.globalAgent.maxSockets = 1000;
+    // var httpserver;
+    // var http = require('http');
+    // httpserver = http.createServer(app);  
+    // http.globalAgent.maxSockets = 1000;
+
+    const options = {
+        key: fs.readFileSync(path.join(__dirname, '../certs/server.key')),
+        cert: fs.readFileSync(path.join(__dirname, '../certs/server.crt'))
+    };
+
+    var https = require('https');    
+    https.globalAgent.maxSockets = 1000;
+
+    var httpserver = https.createServer(options,app);
+    https.globalAgent.maxSockets = 1000;
         
 
     httpserver.listen(conf.PORT, conf.HOST, function() {
