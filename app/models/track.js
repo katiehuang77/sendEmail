@@ -17,7 +17,7 @@ module.exports = {
             else {currentData=doc}
             _.each(body, function(eachLog){
                 currentData.find(function(item,i) {
-                    if(item.url.indexOf(eachLog.url.split("/")[eachLog.url.split("/").length -1]) !== -1 && item.size === eachLog.size && item.status !== eachLog.status){
+                    if(item.url.indexOf(eachLog.url.split("/")[eachLog.url.split("/").length -1]) !== -1 && eachLog.url.split("/")[eachLog.url.split("/").length -1].length < 20 && item.size === eachLog.size && item.status !== eachLog.status){
                         if(eachLog.status === 'enabled'){
                             console.log('send email');
                             // email.send(eachLog);
