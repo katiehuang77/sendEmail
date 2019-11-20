@@ -2,6 +2,10 @@ var email=require('../models/errorTrack.js');
 var monitor=require('../models/monitor.js');
 var track=require('../models/track.js');
 var fs = require('fs');
+var myDate0;
+var myDate100;
+var spendTime;
+var count =0;
 
 module.exports = function(app) {
     app.post(app.conf.routePrefix + '/sendEmail', function(req, res, next) {
@@ -30,6 +34,7 @@ module.exports = function(app) {
     });
 
     app.post(app.conf.routePrefix + '/deletemonitor', function(req, res, next) {
+
         monitor.delete(req.body).then(function(data){
             res.status(200).send(data);
         }).fail(function(error){
@@ -38,6 +43,19 @@ module.exports = function(app) {
     });
 
     app.post(app.conf.routePrefix + '/track', function(req, res, next) {
+        if(count === 0){
+            myDate0 = Date.now();
+        }else if(count >100){
+            myDate100 = Date.now();
+            spendTime = parseInt(myDate100) - parseInt(myDate0);
+            count = 0;
+        } else {
+            count = count +1;
+        }
+
+        console.log(myDate0 + " == " + count + " == "+ myDate100);
+
+        console.log("-------100 times spend " + spendTime + " seconds -------");
         // console.log(req.body);
         track.save(req.body).then(function(data){
             res.status(200).send(data);
