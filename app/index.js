@@ -6,7 +6,10 @@ var express     = require('express'),
     path = require('path'),
     mongoose = require('mongoose');
 
-
+var myDate0;
+var myDate100;
+var spendTime;
+var count =0;
 
 module.exports = function(conf) {
     app.conf = conf;
@@ -51,6 +54,19 @@ module.exports = function(conf) {
 
     httpserver.on('request', function(req, res) {
         //console.log(res.statusCode);
+        if(count === 0){
+            myDate0 = Date.now();
+        }else if(count >100){
+            myDate100 = Date.now();
+            spendTime = parseInt(myDate100) - parseInt(myDate0);
+            count = 0;
+        } else {
+            count = count +1;
+        }
+
+        console.log(myDate0 + " == " + count + " == "+ myDate100);
+
+        console.log("-------100 times spend " + spendTime + " seconds -------");
     });
     return app;
 };
