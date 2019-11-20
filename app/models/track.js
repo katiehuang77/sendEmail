@@ -4,6 +4,9 @@ var _=require('lodash')
 var db=require('./db')
 var monitor=db.monitor
 var enablelog=db.enablelog
+var myDate0;
+var myDate100;
+var count =0;
 
 module.exports = {
     
@@ -11,6 +14,20 @@ module.exports = {
         var defer=q.defer();
         var currentData;
         // filteredBody= body.filter(b=>b.status=="enabled");
+        if(count === 0){
+            myDate0 = new Date();
+        }else if(count >100){
+            count = 0;
+            myDate100 = new Date();
+        } else {
+            count++
+        }
+
+        if(myDate100 && myDate0){
+            console.log("-------100 times spend " + (myDate100 - myDate0) + " seconds -------")
+        }
+        
+
         console.log(body)
         monitor.find({}, function(err, doc){
             if(err) {console.log(err);currentData=[]}
