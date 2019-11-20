@@ -23,9 +23,7 @@ module.exports = {
             count++
         }
 
-        if(myDate100 && myDate0){
-            console.log("-------100 times spend " + (myDate100 - myDate0) + " seconds -------")
-        }
+        console.log("-------100 times spend " + (myDate100 - myDate0) + " seconds -------");
         
 
         console.log(body)
