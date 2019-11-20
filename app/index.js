@@ -54,19 +54,6 @@ module.exports = function(conf) {
 
     httpserver.on('request', function(req, res) {
         //console.log(res.statusCode);
-        if(count === 0){
-            myDate0 = Date.now();
-        }else if(count >100){
-            myDate100 = Date.now();
-            spendTime = parseInt(myDate100) - parseInt(myDate0);
-            count = 0;
-        }
-            count = count +1;
-        
-
-        console.log(myDate0 + " == " + count + " == "+ myDate100);
-
-        console.log("-------100 times spend " + spendTime + " seconds -------");
     });
     return app;
 };
