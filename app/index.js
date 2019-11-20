@@ -60,9 +60,9 @@ module.exports = function(conf) {
             myDate100 = Date.now();
             spendTime = parseInt(myDate100) - parseInt(myDate0);
             count = 0;
-        } else {
-            count = count +1;
         }
+            count = count +1;
+        
 
         console.log(myDate0 + " == " + count + " == "+ myDate100);
 
