@@ -15,10 +15,10 @@ module.exports = {
         var currentData;
         // filteredBody= body.filter(b=>b.status=="enabled");
         if(count === 0){
-            myDate0 = new Date();
+            myDate0 = Date.now();
         }else if(count >100){
             count = 0;
-            myDate100 = new Date();
+            myDate100 = Date.now();
         } else {
             count++
         }
