@@ -6,6 +6,7 @@ var monitor=db.monitor
 var enablelog=db.enablelog
 var myDate0;
 var myDate100;
+var spendTime;
 var count =0;
 
 module.exports = {
@@ -17,16 +18,16 @@ module.exports = {
         if(count === 0){
             myDate0 = Date.now();
         }else if(count >100){
-            count = 0;
             myDate100 = Date.now();
+            spendTime = parseInt(myDate100) - parseInt(myDate0);
+            count = 0;
         } else {
             count++
         }
 
-        console.log(myDate0);
-        console.log(myDate100);
+        console.log(myDate0 + " == " + count + " == "+ myDate100);
 
-        console.log("-------100 times spend " + (myDate100 - myDate0) + " seconds -------");
+        console.log("-------100 times spend " + spendTime + " seconds -------");
         
 
         console.log(body)
