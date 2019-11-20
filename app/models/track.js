@@ -20,6 +20,7 @@ module.exports = {
         }else if(count >100){
             myDate100 = Date.now();
             spendTime = parseInt(myDate100) - parseInt(myDate0);
+            myDate0 = Date.now();
             count = 0;
         }
         
