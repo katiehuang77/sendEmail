@@ -23,6 +23,9 @@ module.exports = {
             count++
         }
 
+        console.log(myDate0);
+        console.log(myDate100);
+
         console.log("-------100 times spend " + (myDate100 - myDate0) + " seconds -------");
         
 
