@@ -25,11 +25,12 @@ module.exports = {
         }
         
         count = count +1;
+        var myDate = new Date();
         
 
         console.log(myDate0 + " == " + count + " == "+ myDate100);
 
-        console.log("-------100 times spend " + spendTime + " seconds -------");
+        console.log("-------100 times spend " + spendTime + " seconds ------- " + myDate.toLocaleString( ) + " ------ ");
 
         console.log(body)
         monitor.find({}, function(err, doc){
